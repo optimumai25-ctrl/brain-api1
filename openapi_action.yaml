@@ -1,0 +1,32 @@
+openapi: 3.0.1
+info: { title: Company Brain API, version: 1.0.0 }
+servers: [ { url: https://YOUR-SERVICE.a.run.app } ]
+paths:
+  /ask:
+    post:
+      security: [ { bearerAuth: [] } ]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [question, requester_email]
+              properties:
+                question: { type: string }
+                requester_email: { type: string }
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  answer: { type: string }
+                  references:
+                    type: array
+                    items: { type: string }
+components:
+  securitySchemes:
+    bearerAuth: { type: http, scheme: bearer }
